@@ -7,3 +7,38 @@
      margin: 0;
      background-color: antiquewhite;
  }
+ #container{
+     width: 95%;
+     margin: auto;
+     /* padding: 1px; */
+    display: grid;
+    grid-template-columns: auto auto auto;
+
+ }
+
+ div[classname='inner_box']{
+    background-color: rgb(178, 238, 66);
+    border: 1px solid black;
+    /* font-size: 30px; */
+    width: 95%;
+    height: 95%;
+    text-align: center;
+    margin: 1px;
+}
+
+div[classname='inner_box']:hover{
+    background-color: blue;
+}
+
+
+div[classname='box']{
+    width: 95%;
+    height: 95%;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    background-color: rgb(10, 222, 77);
+    margin: 1px;
+    padding: 1px;
+
+}
