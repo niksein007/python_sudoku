@@ -1,7 +1,5 @@
 from browser import document, html, bind
-# import display
 
-numbers_list = ['1', '2', '3', '4', '5', '6', '7', '8', '9']
 # creating Rows, Columns and Boxes
 columns = []
 rows = []
@@ -45,34 +43,10 @@ for CRB in range(1, 10):  # CRB == column row and box
     # print(row)
     # print(box)
 
-# print(columns)
-# print(rows)
-# print(boxes[0]['tag'])
 
-# attach rowS and columnS to box
-# for i in range(1, 4):
-#     boxes[0]['columns_attached'].append(f'column{i}')
-#     boxes[3]['columns_attached'].append(f'column{i}')
-#     boxes[6]['columns_attached'].append(f'column{i}')
-#     boxes[0]['rows_attached'].append(f'rows{i}')
-#     boxes[1]['rows_attached'].append(f'rows{i}')
-#     boxes[2]['rows_attached'].append(f'rows{i}')
-
-# for i in range(4, 7):
-#     boxes[1]['columns_attached'].append(f'column{i}')
-#     boxes[4]['columns_attached'].append(f'column{i}')
-#     boxes[7]['columns_attached'].append(f'column{i}')
-#     boxes[4]['rows_attached'].append(f'rows{i}')
-#     boxes[5]['rows_attached'].append(f'rows{i}')
-#     boxes[3]['rows_attached'].append(f'rows{i}')
-
-# for i in range(7, 10):
-#     boxes[2]['columns_attached'].append(f'column{i}')
-#     boxes[5]['columns_attached'].append(f'column{i}')
-#     boxes[8]['columns_attached'].append(f'column{i}')
-#     boxes[6]['rows_attached'].append(f'rows{i}')
-#     boxes[7]['rows_attached'].append(f'rows{i}')
-#     boxes[8]['rows_attached'].append(f'rows{i}')
+print(boxes[0]['name'])
+print(boxes[0]['values'])
+print(boxes[0]['name'])
 
 # step 2 attach row and column to innerboxes
 #################COLUMNS###################################
@@ -133,42 +107,88 @@ for box in boxes:
             elif x <= 9:
                 box[f'inner_box{x}']['row_attached'] = 'row9'
 
-# print(boxes[0])
-
-
 
 # step 3
 #displaying game visually
-selector = html.DIV(id='selector' )
+selector = html.DIV(id='selector_container' )
 
-selector <=(html.BUTTON(i) for i in range(1, 10) )##list comprehension
+selector <=(html.DIV(i, id=f'selector{i}', classname='selector') for i in range(1, 10) )##list comprehension
 
 document <= selector
 
 container = html.DIV( id='container')
-section =(html.DIV(box['name'], id=box['name'],classname='box') for box in boxes)##holds the boxes
+section =(html.DIV('', id=box['name'],classname='box') for box in boxes)##holds the boxes
 
 container <= section
 document <= container
+
 ###attach inner boxes to outer boxes
 for x in range(1,10):
-    document[f'box{x}'] <= ( html.BUTTON(f'{num}',id=f"{boxes[x-1]['name']}_inner_box{num}" ,classname='inner_box') for num in range(1,10))
+    document[f'box{x}'] <= ( html.BUTTON('',id=f"{boxes[x-1]['name']}_inner_box{num}" ,classname='inner_box') for num in range(1,10))
+
+
 
 
 #step 4
 ##creating game logic
+previous_id = []
+new_id = []
 
-def logic(event):
+def click_buttons(event):
     """
-    game logic
+    perform an action when the button elements are clicked
     """
-    print('mark')
-##attaching click event
-for value in range(1,10):
-    item = document[f"{boxes[value-1]['name']}_inner_box{value}"]
-    item.bind("click", logic)
-
-
+    global previous_id ### to use the variable without producing an err
+    global new_id
+    inner_box = event.target
     
-# for button in document.select("div"):# for tags list note
-#     button.bind("click", logic)
+    if new_id == []  :
+        previous_id.append(inner_box.attrs['id'])
+        inner_box.attrs['id'] = 'selected'
+        new_id.append(inner_box.attrs['id'])
+        # print('run1')
+
+    elif new_id[0] == inner_box.attrs['id']:
+        inner_box.attrs['id'] = previous_id[0]
+        previous_id = []
+        new_id = []
+    else:
+        previous_inner_box = document['selected'] 
+        previous_inner_box.attrs['id'] = previous_id[0]
+        previous_id[0] = inner_box.attrs['id']
+        inner_box.attrs['id'] = 'selected'
+        new_id[0] = inner_box.attrs['id']
+              
+        
+
+
+def click_selectors(event):
+    """
+    perform an action when the selectors are clicked
+    """
+    global previous_id
+    global new_id
+    if new_id != []  :
+        selector = event.target
+        inner_box = document[new_id[0]]
+        inner_box.text =  selector.text
+        inner_box.attrs['id'] = previous_id[0]
+        print(selector.text)
+        previous_id = []
+        new_id = []
+
+# print(rows)
+# print(columns)
+# for box in boxes:
+#     print(boxes)
+# print(boxes[0]['name'])
+
+
+
+### attaching click_button function to the button tag
+for button in document.select("button"):# for tags list note
+    button.bind("click", click_buttons)
+#####  attaching click_selectors function to the selectors
+for value in range(1,10):
+    selector = document[f'selector{value}']
+    selector.bind("click", click_selectors)

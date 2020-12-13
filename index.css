@@ -7,6 +7,23 @@
      margin: 0;
      background-color: antiquewhite;
  }
+ #selector_container{
+     background-color: rgb(193, 129, 33);
+ }
+ div[classname='selector']{
+    display: inline-block;
+    border: 1px solid navy;
+    width: 30px;
+    text-align: center;
+    margin: 1px;
+ }
+ div[classname='selector']:hover{
+    background-color: rgb(226, 211, 189);
+    cursor: pointer;
+
+ }
+
+
  #container{
      width: 95%;
      margin: auto;
@@ -15,19 +32,20 @@
     grid-template-columns: auto auto auto;
 
  }
+ button{
+     width: 20px;
+     height: 20px;
+ }
 
- div[classname='inner_box']{
-    background-color: rgb(178, 238, 66);
-    border: 1px solid black;
-    /* font-size: 30px; */
-    width: 95%;
-    height: 95%;
-    text-align: center;
-    margin: 1px;
+ button[id='selected']{
+    background-color: rgb(66, 72, 238);
+    color: palegreen;
+   
 }
 
-div[classname='inner_box']:hover{
-    background-color: blue;
+button:hover{
+    /* background-color: blue; */
+    cursor: pointer;
 }
 
 
