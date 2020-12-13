@@ -150,32 +150,45 @@ def click_buttons(event):
         inner_box.attrs['id'] = 'selected'
         new_id.append(inner_box.attrs['id'])
         print('run1')
+        if inner_box.text != '':
     ####################################################
-        #slice out the number of the box from the id
-        box_num = previous_id[0][3:4]
-        #convert to int and minus 1 to get box index
-        box_index = int(box_num) -1 
-        py_inner_box = boxes[box_index][previous_id[0]]
-        #get column and row index
-        column_num = py_inner_box['column_attached'][-1]
-        column_index = int(column_num) -1
+            #slice out the number of the box from the id
+            box_num = previous_id[0][3:4]
+            #convert to int and minus 1 to get box index
+            box_index = int(box_num) -1 
 
-        row_num = py_inner_box['row_attached'][-1]
-        row_index = int(row_num) -1
+            py_inner_box = boxes[box_index][previous_id[0]]
+            #get column and row index
+            column_num = py_inner_box['column_attached'][-1]
+            column_index = int(column_num) -1
+
+            row_num = py_inner_box['row_attached'][-1]
+            row_index = int(row_num) -1
+
     ######################################################
+            py_inner_box['value'] = ''
+            #note a slice will always return a new list (avoiding it below)
+            rows[row_index]['values'].remove(inner_box.text)
+            print(rows[row_index]['values'])
+            columns[column_index]['values'].remove(inner_box.text)
+            print(columns[column_index]['values'])
+            boxes[box_index]['values'].remove(inner_box.text)
+            print(boxes[box_index]['values'])
+
+            inner_box.text = ''
+
+        if inner_box.class_name == 'error' :
+            inner_box.class_name = ''
+
     elif new_id[0] == inner_box.attrs['id']:
+        # for styling
         inner_box.attrs['id'] = previous_id[0]
         previous_id = []
         new_id = []
         print('run2')
-    #remove the values from the columns,rows and boxes
-        rows[row_index]['values'][:-1]
-        columns[column_index]['values'][:-1]
-        boxes[box_index]['values'][:-1]
-        if inner_box.class_name == 'error' :
-            inner_box.class_name = ''
-            print(inner_box.class_name)
-    else:
+    
+    elif new_id[0] != inner_box.attrs['id']:
+        # for styling 
         previous_inner_box = document['selected'] 
         previous_inner_box.attrs['id'] = previous_id[0]
         previous_id[0] = inner_box.attrs['id']
@@ -184,10 +197,6 @@ def click_buttons(event):
         print('run3')
 
         
-       
-        # rows[row_index]['values'][:-1]
-        # columns[column_index]['values'][:-1]
-        # boxes[box_index]['values'][:-1]
         
 
 
@@ -200,9 +209,10 @@ def click_selectors(event):
     if new_id != []  :
         selector = event.target
         inner_box = document[new_id[0]]
-        inner_box.text =  selector.text
         inner_box.attrs['id'] = previous_id[0]
+       
 
+    #########################################################
         #slice out the number of the box from the id
         box_num = previous_id[0][3:4]
         #convert to int and minus 1 to get box index
@@ -214,7 +224,22 @@ def click_selectors(event):
 
         row_num = py_inner_box['row_attached'][-1]
         row_index = int(row_num) -1
-        #attach the value of inner_box to column,row and box
+    ##########################################################
+
+        # ensure that the text value doesnt repeat in the column,row and boxes
+        if inner_box.text == '':
+            inner_box.text =  selector.text
+
+        elif inner_box.text != '':
+            boxes[box_index]['values'].remove(inner_box.text)
+            columns[column_index]['values'].remove(inner_box.text) 
+            rows[row_index]['values'].remove(inner_box.text) 
+            # attach the new text value
+            inner_box.text = ''
+            inner_box.text =  selector.text
+
+
+        # attach the value of inner_box to column,row and box
         py_inner_box['value'] = inner_box.text
         boxes[box_index]['values'].append(inner_box.text)
         columns[column_index]['values'].append(inner_box.text) 
