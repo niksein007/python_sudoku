@@ -7,6 +7,10 @@
      margin: 0;
      background-color: antiquewhite;
  }
+
+ .error{
+     color: red;
+ }
  #selector_container{
      background-color: rgb(193, 129, 33);
  }
