@@ -149,7 +149,7 @@ def click_buttons(event):
         previous_id.append(inner_box.attrs['id'])
         inner_box.attrs['id'] = 'selected'
         new_id.append(inner_box.attrs['id'])
-        print('run1')
+        # print('run1')
         if inner_box.text != '':
     ####################################################
             #slice out the number of the box from the id
@@ -169,11 +169,11 @@ def click_buttons(event):
             py_inner_box['value'] = ''
             #note a slice will always return a new list (avoiding it below)
             rows[row_index]['values'].remove(inner_box.text)
-            print(rows[row_index]['values'])
+            # print(rows[row_index]['values'])
             columns[column_index]['values'].remove(inner_box.text)
-            print(columns[column_index]['values'])
+            # print(columns[column_index]['values'])
             boxes[box_index]['values'].remove(inner_box.text)
-            print(boxes[box_index]['values'])
+            # print(boxes[box_index]['values'])
 
             inner_box.text = ''
 
@@ -185,7 +185,7 @@ def click_buttons(event):
         inner_box.attrs['id'] = previous_id[0]
         previous_id = []
         new_id = []
-        print('run2')
+        # print('run2')
     
     elif new_id[0] != inner_box.attrs['id']:
         # for styling 
@@ -194,7 +194,7 @@ def click_buttons(event):
         previous_id[0] = inner_box.attrs['id']
         inner_box.attrs['id'] = 'selected'
         new_id[0] = inner_box.attrs['id']
-        print('run3')
+        # print('run3')
 
         
         
@@ -245,9 +245,9 @@ def click_selectors(event):
         columns[column_index]['values'].append(inner_box.text) 
         rows[row_index]['values'].append(inner_box.text) 
 
-        print(rows[row_index])
-        print(columns[column_index])
-        print(boxes[box_index]['values'])
+        # print(rows[row_index])
+        # print(columns[column_index])
+        # print(boxes[box_index]['values'])
 
         #check that no value is repeated in colums rows or boxes
         for num in ['1','2','3','4','5','6','7','8','9']:
@@ -259,33 +259,35 @@ def click_selectors(event):
                 or (repeat_in_column > 1) \
                 or (repeat_in_box > 1) :
                 
-                print('yes')
+                # print('yes')
                 if inner_box.class_name != 'error' :
                     inner_box.class_name = 'error'
-                    print(inner_box.class_name)
+                    # print(inner_box.class_name)
                 
-           
-            # print(num)
-
-
-        # clear all lists
+        # clear lists
         previous_id = []
         new_id = []
 
-        
+    # step 5
+    # check if error class is still attached because number removed may not
+    # be the exact one that caused the error
 
-# print(boxes[0]['name'])
-# print(boxes[0]['values'])
-
-# print(boxes[0]['box1_inner_box1'])
-
-# print(rows[0])
-# print(columns[0])
-
-# print(boxes[0]['values'])
-# print(boxes['box1']) err
-
-
+    for box in boxes:
+        for i in range(1,10):
+        # get inner_boxes name and check the class value
+            py_id =box[f"{box['name']}_inner_box{i}"]['name']
+            # to get the html equivalent
+            html_id = document[box[f"{box['name']}_inner_box{i}"]['name']]
+            # print(py_id)
+            if html_id.class_name == 'error':
+                column_index = int(box[py_id]['column_attached'][6:7]) - 1
+                row_index = int(box[py_id]['row_attached'][3:4]) - 1
+                #chexk for distinct values in CRB
+                if (len(box['values']) == len(set(box['values']))) \
+                and (len(columns[column_index]['values']) == len(set(columns[column_index]['values']))) \
+                and (len(rows[row_index]['values']) == len(set(rows[row_index]['values']))):
+                    html_id.class_name = ''
+                    print('nam me')
 
 
 ### attaching click_button function to the button tag
@@ -295,3 +297,4 @@ for button in document.select("button"):# for tags list note
 for value in range(1,10):
     selector = document[f'selector{value}']
     selector.bind("click", click_selectors)
+
