@@ -1,5 +1,5 @@
 from browser import document, html, bind
-
+import functions
 # creating Rows, Columns and Boxes
 columns = []
 rows = []
@@ -47,7 +47,7 @@ for CRB in range(1, 10):  # CRB == column row and box
 
 
 # step 2 attach row and column to innerboxes
-#################COLUMNS###################################
+########COLUMNS#####
 for box in boxes:
     if box['name'] in ['box1','box4','box7']:
         # print('yes')
@@ -76,7 +76,7 @@ for box in boxes:
             column_count +=1
             if column_count == 10 :
                 column_count = 7
-######################ROWS###########################
+#####ROWS#####
 for box in boxes:
     if box['name'] in ['box1','box2','box3']:
         # print('yes')
