@@ -8,6 +8,9 @@
      margin: 0;
      background-color: antiquewhite;
  }
+ .tess{
+     background-color: rgb(214, 241, 10);
+ }
 
  .error {
      color: red;
@@ -17,6 +20,17 @@
      text-align: center;
      font-weight: bold;
      font-size: large;
+ }
+ .loading{
+     display: block;
+     position: absolute;
+     top: 150px;
+     left: 85px;
+     color: blue;
+     background-color: whitesmoke;
+ }
+ .not_loading{
+     display: none;
  }
 
  #selector_container {
@@ -115,6 +129,22 @@
      background-color: turquoise;
      transition: 0.5s;
      cursor: pointer;
+ }
+
+ #game_levels_container{
+     position: absolute;
+     top:100px ;
+     right: 1%;
+ }
+ .game_level{
+     background-color: rgb(195, 168, 60);
+     text-align: center;
+     margin: 2px;
+     border-radius: 2px;
+ }
+ .game_level:hover{
+     cursor: pointer;
+     background-color: rgb(46, 236, 46);
  }
 
  @media(min-width:768px) {

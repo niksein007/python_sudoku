@@ -21,18 +21,49 @@ for CRB in range(1, 10):  # CRB == column row and box
 
     box = {'name': f'box{CRB}',
            'values': [],
+           'columns_attached':[],
+           'rows_attached':[],
+           'row_column_mix':[],
+           'blacklist':[],
+           'html_ids':[]
            }
     # attach 9 inner divs/boxes
     for num in range(1, 10):
         box[f'box{CRB}_inner_box{num}'] = {
             'name':f'box{CRB}_inner_box{num}',
-            'column_attached': [],
-            'row_attached': [],
-            'value':'',
+            'column_attached': '',
+            'row_attached': '',
+            'value':"",
         }
     boxes.append(box)
+# step 2
+# # attach rowS and columnS to box, useful when creatin game levels
+# for i in range(1, 4):
+#     boxes[0]['columns_attached'].append(f'column{i}')
+#     boxes[3]['columns_attached'].append(f'column{i}')
+#     boxes[6]['columns_attached'].append(f'column{i}')
+#     boxes[0]['rows_attached'].append(f'row{i}')
+#     boxes[1]['rows_attached'].append(f'row{i}')
+#     boxes[2]['rows_attached'].append(f'row{i}')
 
-# step 2 attach row and column to innerboxes
+# for i in range(4, 7):
+#     boxes[1]['columns_attached'].append(f'column{i}')
+#     boxes[4]['columns_attached'].append(f'column{i}')
+#     boxes[7]['columns_attached'].append(f'column{i}')
+#     boxes[4]['rows_attached'].append(f'row{i}')
+#     boxes[5]['rows_attached'].append(f'row{i}')
+#     boxes[3]['rows_attached'].append(f'row{i}')
+
+# for i in range(7, 10):
+#     boxes[2]['columns_attached'].append(f'column{i}')
+#     boxes[5]['columns_attached'].append(f'column{i}')
+#     boxes[8]['columns_attached'].append(f'column{i}')
+#     boxes[6]['rows_attached'].append(f'row{i}')
+#     boxes[7]['rows_attached'].append(f'row{i}')
+#     boxes[8]['rows_attached'].append(f'row{i}')
+
+
+# step 3 attach row and column to innerboxes
 ########COLUMNS#####
 for box in boxes:
     if box['name'] in ['box1','box4','box7']:
@@ -199,7 +230,11 @@ def click_selectors(event):
                 or (repeat_in_column > 1) \
                 or (repeat_in_box > 1) :
                 
-                # print('yes')
+                print('there is a repeat')
+                # print(boxes[box_list[1]]['values'])
+                # print(columns[box_list[2]]['values'])
+                # print(rows[box_list[3]]['values'])
+
                 if inner_box.class_name != 'error' :
                     inner_box.class_name = 'error'
                     # print(inner_box.class_name)
@@ -218,6 +253,55 @@ for value in range(1,10):
     selector = document[f'selector{value}']
     selector.bind("click", click_selectors)
 
-#run timer function
+# attaching unique row and column to inner boxes
+functions.row_column_combinator(boxes)
+
+# creating game levels
+# attaching levels to respective functions
+def game_level(event):
+    """
+    calls the appropriate function
+    """
+    print('LOADING')
+    # document <= html.P('Generating sudoku')
+    # document['loading'].class_name = 'loading'
+
+    if event.target.id == 'easy':
+        functions.game_easy(boxes,columns,rows)
+    elif event.target.id == 'medium':
+        functions.game_medium(boxes,columns,rows)
+    elif event.target.id == 'hard':
+        functions.game_hard(boxes,columns,rows)
+
+    document['loading'].class_name = 'not_loading'
+    
+def loading(event):
+    """
+    shows a loading status
+    """
+    document['loading'].class_name = 'loading'
+
+    pass
+
+easy = document['easy']
+easy.bind("click",game_level)
+easy.bind("mousedown",loading)
+
+
+medium = document['medium']
+medium.bind("click", game_level)
+medium.bind("mousedown",loading)
+
+
+hard = document['hard']
+hard.bind("click",game_level)
+hard.bind("mousedown",loading)
+
+
+
+
+
+
+
 
 
