@@ -1,4 +1,4 @@
-from browser import document, timer
+from browser import document
 from random import randint
 import time
 
@@ -64,12 +64,6 @@ def clear_all_values(functions, id, inner_box, boxes, columns, rows):
 
         inner_box.text = ''
 
-
-def time_counter(parameter_list):
-    """
-    calculates the time taken to solve the game
-    """
-    pass
 
 
 def congrats_msg(parameter_list):
@@ -365,8 +359,6 @@ def final_creator(boxes,columns,rows,end):
     """
     removes numbers from sudoku
     """
-    print('easy game')
-
     game_start(boxes,columns,rows)
      # create a list of nine randomly selected index
     index_list = []
@@ -376,8 +368,9 @@ def final_creator(boxes,columns,rows,end):
             index_list.append(random)
     # print(index_list)
     for i in range(0,end):
+        
         for box in boxes:
-            print(box['row_column_mix'])
+            # print(box['row_column_mix'])
             row_column_index = row_column_mix_gen(box,index_list[i])
 
             row_index = row_column_index[0]
@@ -402,7 +395,7 @@ def final_creator(boxes,columns,rows,end):
             
 
 
-def game_easy(boxes,columns,rows,end=3):
+def game_easy(boxes,columns,rows,end=4):
     """
     creates an easy version
     """

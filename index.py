@@ -1,5 +1,6 @@
 from browser import document, html, bind
 import functions
+import clock_display as cd
 
 # creating Rows, Columns and Boxes
 columns = []
@@ -268,12 +269,25 @@ def game_level(event):
 
     if event.target.id == 'easy':
         functions.game_easy(boxes,columns,rows)
+        document['easy'].class_name = 'game_level color'
     elif event.target.id == 'medium':
         functions.game_medium(boxes,columns,rows)
+        document['medium'].class_name = 'game_level color'
+
     elif event.target.id == 'hard':
         functions.game_hard(boxes,columns,rows)
+        document['medium'].class_name = 'game_level color'
 
+    # set timer color
     document['loading'].class_name = 'not_loading'
+    document['seconds'].class_name= 'time_style_start'
+    document['minute'].class_name= 'time_style_start'
+    document['hour'].class_name= 'time_style_start'
+    # start the clock
+    cd.run()
+    # show pause button
+    document['pause_btn'].class_name = 'fas fa-pause'
+
     
 def loading(event):
     """
@@ -298,6 +312,8 @@ hard.bind("click",game_level)
 hard.bind("mousedown",loading)
 
 
+
+    
 
 
 
