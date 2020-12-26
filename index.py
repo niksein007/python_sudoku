@@ -1,4 +1,4 @@
-from browser import document, html, bind
+from browser import document, html, bind,window
 import functions
 import clock_display as cd
 
@@ -243,8 +243,10 @@ def click_selectors(event):
         # clear lists
         id = []
         class_id = []
-    #check if error class should be present
+    # checks if error class should be present
     functions.unchecked_err(boxes,columns,rows)
+    # congratulatory message for winning
+    functions.congrats_msg(rows,columns)
 
 # attaching click_button function to the button tag
 for button in document.select("button"):# for tags list note
@@ -269,14 +271,14 @@ def game_level(event):
 
     if event.target.id == 'easy':
         functions.game_easy(boxes,columns,rows)
-        document['easy'].class_name = 'game_level color'
+        document['game_status'].text = 'easy'
     elif event.target.id == 'medium':
         functions.game_medium(boxes,columns,rows)
-        document['medium'].class_name = 'game_level color'
-
+        document['game_status'].text = 'medium'
     elif event.target.id == 'hard':
         functions.game_hard(boxes,columns,rows)
-        document['medium'].class_name = 'game_level color'
+        document['game_status'].text = 'hard'
+
 
     # set timer color
     document['loading'].class_name = 'not_loading'
@@ -287,6 +289,12 @@ def game_level(event):
     cd.run()
     # show pause button
     document['pause_btn'].class_name = 'fas fa-pause'
+    document['pause'].class_name = ''
+    # remove game_levels from display
+    document['game_levels_container'].class_name = 'game_levels_container2'
+    # display game_status
+    document['game_status'].class_name = 'game_status1'
+
 
     
 def loading(event):
@@ -298,18 +306,27 @@ def loading(event):
     pass
 
 easy = document['easy']
-easy.bind("click",game_level)
+easy.bind("mouseup",game_level)
 easy.bind("mousedown",loading)
 
 
 medium = document['medium']
-medium.bind("click", game_level)
+medium.bind("mouseup", game_level)
 medium.bind("mousedown",loading)
 
 
 hard = document['hard']
-hard.bind("click",game_level)
+hard.bind("mouseup",game_level)
 hard.bind("mousedown",loading)
+
+# reload the page
+def reset(event):
+    """
+    docstring
+    """
+    window.location.reload()
+reload = document['reload']
+reload.bind("click", reset)
 
 
 

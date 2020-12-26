@@ -75,7 +75,7 @@ def clock(event):
         document['seconds'].class_name= 'time_style_pause'
         document['minute'].class_name= 'time_style_pause'
         document['hour'].class_name= 'time_style_pause'
-        document['selector_container'].class_name= 'unclickable'
+        document['container'].class_name= 'unclickable'
         document['layover_container'].class_name= 'layover_container'
 
 
@@ -85,7 +85,7 @@ def clock(event):
         document['seconds'].class_name= 'time_style_start'
         document['minute'].class_name= 'time_style_start'
         document['hour'].class_name= 'time_style_start'
-        document['selector_container'].class_name= ''
+        document['container'].class_name= ''
         document['layover_container'].class_name= 'hide'
 
 

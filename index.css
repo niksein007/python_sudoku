@@ -24,7 +24,7 @@
  /* selectors */
  #selector_container {
      position: absolute;
-     top: 285px;
+     top: 325px;
      width: 100%;
      display: grid;
      grid-template-columns: auto auto auto;
@@ -62,11 +62,12 @@
      width: 123px;
      height: 93px;
      margin: auto;
-     margin-top: 130px;
-     background-color: rgba(128, 128, 128,0.3);
+     margin-top: 145px;
+     /* background-color: rgba(128, 128, 128,0.3); */
      text-align: center;
      border-radius: 5px;
      padding-top: 10px;
+     /* border: 1px solid gold; */
 
  }
  #layover_msg{
@@ -79,7 +80,7 @@
  #container {
      max-width: fit-content;
      margin: auto;
-     margin-top: 10px;
+     /* margin-top: 10px; */
      display: grid;
      grid-template-columns: auto auto auto;
      justify-content: center;
@@ -88,6 +89,7 @@
     
 
  }
+
 
 
  div[classname='box'] {
@@ -102,11 +104,12 @@
 
 
  button {
-    width: 21px;
-    height: 21px;
+    width: 24px;
+    height: 25.15px;
     outline: none;
     text-align: center;
-    padding: 0;
+    /* font-size: 10px; */
+    /* padding: 0; */
     margin: 0.4px;
     border: none;
     background-color: white;    
@@ -131,9 +134,11 @@ button:hover {
 .error {
     color: red;
 }
+
+/* spinner */
 .loading_container{
     position: absolute;
-    top: 155px;
+    top: 180px;
     width: 100%;
     /* border: 1px solid gold; */
     
@@ -167,28 +172,44 @@ button:hover {
 .not_loading {
     display: none;
 }
+
 /* game levels */
 
- #game_levels_container {
-     position: absolute;
-     top: 100px;
-     right: 1%;
+ .game_levels_container {
+     position: relative;
+     width: 100%;
+     display: grid;
+     grid-template-columns: auto auto auto;
+     justify-content: center;
+     margin-bottom: 0px;
+     /* border: 1px solid gold; */
+ }
+ .game_levels_container2{
+     display: none;
  }
 
  .game_level {
      background-color: rgb(71, 180, 231);
      text-align: center;
-     margin: 2px;
+     width: 60px;
      border-radius: 2px;
+     margin: 0px 4px 4px 0px;
+     
  }
 
  .game_level:hover {
      cursor: pointer;
      background-color: rgb(46, 236, 46);
  }
-.color{
-    background-color: green;
-    color: white;
+
+.game_status{
+  display: none;
+}
+.game_status1{
+    color: rgb(11, 211, 246);
+    text-align: center;
+    font-weight: bold;
+    font-size: small;
 }
  /*clock display  */
 
@@ -197,11 +218,9 @@ button:hover {
     font-size: 13px;
 }
 .hide{
-    visibility: hidden;
+    display: none;
 }
-/* .show{
-    visibility: visible;
-} */
+
 
  #pause {
      text-align: center;
@@ -209,9 +228,9 @@ button:hover {
      padding: 2px;
  }
 
- #pause:hover {
-     color: white;
-     transition: 0.5s;
+ #pause_btn:hover {
+     color: rgb(16, 236, 225);
+     transition: 0.3s;
      cursor: pointer;
  }
 
@@ -256,4 +275,41 @@ button:hover {
 
  .time_style_pause {
      color: rgb(255, 0, 0);
+ }
+
+ /* new game/ reload */
+ #reload_container{
+    position: absolute;
+    top: 250px;
+    width: 100%;
+ }
+ #reload{
+     width: fit-content;
+     margin: auto;
+     text-align: center;
+     background-color: rgb(131, 138, 241);
+     border-radius: 5px;
+     padding: 1px;
+
+ }
+ #reload:hover{
+     background-color: cornflowerblue;
+     transition: 0.5s;
+     cursor: pointer;
+ }
+
+ /* congratulatory message */
+ .winner{
+     display: block;
+     margin-top: 12.5px;
+ }
+ #winner_msg{
+     font-size: small;
+     width: fit-content;
+     margin: auto;
+     text-align: center;
+     padding: 1px;
+     border-radius: 5px;
+     background-color: rgba(6, 93, 255,0.9);
+     color: greenyellow;
  }

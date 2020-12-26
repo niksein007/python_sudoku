@@ -1,6 +1,7 @@
-from browser import document
+from browser import document,timer
 from random import randint
 import time
+import clock_display as cd
 
 
 def get_inner_box_indexes(id, boxes):
@@ -66,12 +67,27 @@ def clear_all_values(functions, id, inner_box, boxes, columns, rows):
 
 
 
-def congrats_msg(parameter_list):
+def congrats_msg(rows,columns):
     """
-    docstring
+    Checks that all row and colums have distinct values and the length equals nine(9).
+    Prints a congratulatory message if true and stops the clock
     """
-    pass
+    count = 0
+    for i in range(0,9):
+        if len(set(rows[i]['values'])) == 9 and len(set(columns[i]['values'])) == 9:
+            count += 1 
+    if count == 9:
+        #stop the clock 
+        timer1 = cd.timer1
+        timer2 = cd.timer2
+        timer3 = cd.timer3
 
+        timer.clear_interval(timer1)
+        timer.clear_interval(timer2)
+        timer.clear_interval(timer3)
+        print('genius babe')
+        document['winner'].class_name = 'winner'
+        document['pause'].class_name = 'hide'
 
 
      
@@ -194,11 +210,6 @@ def row_column_mix_gen(box,index):
     # print(rows[row_index]['name'])
     # print(columns[column_index]['name'])
     return [row_index,column_index]
-
-
-
-
-
 
 
 
@@ -395,7 +406,7 @@ def final_creator(boxes,columns,rows,end):
             
 
 
-def game_easy(boxes,columns,rows,end=4):
+def game_easy(boxes,columns,rows,end=3):
     """
     creates an easy version
     """
