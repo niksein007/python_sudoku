@@ -328,6 +328,14 @@ def reset(event):
 reload = document['reload']
 reload.bind("click", reset)
 
+####################################
+def sample(event):
+    """
+    docstring
+    """
+    functions.test(boxes,columns,rows)
+test = document['test']
+test.bind("click",sample)
 
 
     

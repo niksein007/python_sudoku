@@ -1,5 +1,6 @@
 from browser import document,timer
 from random import randint
+import random
 import time
 import clock_display as cd
 
@@ -436,10 +437,10 @@ def game_hard(boxes,columns,rows,end=7):
 
 
                    
-                                        
+
+   
+
+     
 
 
-
-
-            
             
