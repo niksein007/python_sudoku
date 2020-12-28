@@ -1,19 +1,47 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js">
-    </script>
-    <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython_stdlib.js">
-    </script>
-    <link rel="stylesheet" href="index.css">
-    <title>Document</title>
-</head>
-<body onload="brython()">
-    <p>sudoku</p>
-    <script src="index.py" type="text/python" ></script>
-    <!-- <script src="display.py" type="text/python" ></script> -->
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/brython@3.8.10/brython_stdlib.js"></script>
+    <link rel="stylesheet" href="index.css" />
+    <title>sudoku</title>
+  </head>
+  <body onload="brython()">
+    <p id="sudoku">sudoku</p>
+    <!-- timer -->
+      <div id="timer">
+        <div id="hour" class="time_style">00</div>
+        <div id="minute" class="time_style">00</div>
+        <div id="seconds" class="time_style">00</div>
+        <div id="pause" class="hide"><i id='pause_btn' class="fas fa-pause"></i></div>
+      </div>
+      <!-- game levels -->
+    <div id="game_levels_container" class="game_levels_container">
+      <div id="easy" class="game_level ">Easy</div>
+      <div id="medium" class="game_level">Medium</div>
+      <div id="hard" class="game_level">Hard</div>
+    </div>
+    <div id="game_status" class="game_status"></div>
+    <!-- loader animation -->
+    <div class="loading_container">
+    <div id="loading" class="not_loading"></div>
+    <!-- layover message -->
+    <div id="layover_container" class="not_loading"><p id="layover_msg">click play to resume</p></div>
+    <!-- congratulatory message -->
+    <div id="winner" class="hide"> <div id="winner_msg">Congratulation you're a Genius</div> </div>
+    <!-- play/reload game -->
+    <div id="reload_container">
+      <div id="reload">new game</div>
 
-</body>
+    </div>
+    </div>
+      
+
+
+    <script src="index.py" type="text/python"></script>
+    <script src="https://kit.fontawesome.com/817c0aaf7e.js" crossorigin="anonymous"></script>
+   
+  </body>
 </html>

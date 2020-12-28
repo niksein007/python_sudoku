@@ -3,109 +3,313 @@
  }
 
  body {
+     position: relative;
      padding: o;
      margin: 0;
-     background-color: antiquewhite;
+     background-color: rgb(236, 234, 231);
  }
+ #sudoku{
+     margin-top: 5px;
+    text-align: center;
+    font-weight: bold;
+    font-size: xx-large;
+    font-family: sans-serif;
 
- .error {
-     color: red;
- }
- p{
-     text-align: center;
-     font-weight: bold;
-     font-size: large;
- }
-
+    /* font-size: 72px; */
+    background: -webkit-linear-gradient(rgb(7, 111, 248), rgb(163, 8, 8));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    /* text-shadow:2px 2px ; */
+}
+ /* selectors */
  #selector_container {
-    width: fit-content;
-    margin: auto;
-     background-color: rgb(193, 129, 33);
+     position: absolute;
+     top: 325px;
+     width: 100%;
+     display: grid;
+     grid-template-columns: auto auto auto;
+     justify-content: center;
+     /* background-color: gold; */
+     /* border: 1px solid gold; */
+    
  }
 
  div[classname='selector'] {
-     display: inline-block;
-     border: 1px solid navy;
-     width: 30px;
+     width: 40px;
+     height: 30px;
+     padding-top: 6px;
      text-align: center;
-     margin: 1px;
+     margin: 0.7px;
+     background-color: white;    
+     border-radius: 5px;
+     border: 1px solid rgb(17, 17, 240);
+
  }
 
  div[classname='selector']:hover {
-     background-color: rgb(226, 211, 189);
+     background-color: rgb(183, 243, 253);
      cursor: pointer;
+     transition: 0.5s;
+     /* color: rgb(21, 255, 0); */
 
  }
-
-
-
- button {
-     width: 20px;
-     height: 20px;
-     outline: none;
-     
-     /* border-color: blue; */
-
+ .unclickable{
+     pointer-events: none;
  }
-
- button[id='selected'] {
-     background-color: rgb(66, 72, 238);
-     color: palegreen;
-     
-
- }
-
- button:hover {
-     /* background-color: blue; */
-     cursor: pointer;
- }
-
- #container {
-     /* width: fit-content;
-     height: fit-content; */
-     width: 188px;
-     height: 190.5px;
+ .layover_container{
+     position: relative;
+     z-index: 1;
+     width: 123px;
+     height: 93px;
      margin: auto;
-     margin-top: 20px;
+     margin-top: 145px;
+     /* background-color: rgba(128, 128, 128,0.3); */
+     text-align: center;
+     border-radius: 5px;
+     padding-top: 10px;
+     /* border: 1px solid gold; */
+
+ }
+ #layover_msg{
+     background-color: rgba(128, 128, 128,0.9);
+     color: white;
+ }
+
+
+/* sudoku board */
+ #container {
+     max-width: fit-content;
+     margin: auto;
+     /* margin-top: 10px; */
      display: grid;
      grid-template-columns: auto auto auto;
-     justify-content: space-around;
-     align-content: space-around;
-     background-color: rgb(0, 0, 0);
-
+     justify-content: center;
+     background-color: blue;
+     /* border: 1px solid gold; */
+    
 
  }
+
 
 
  div[classname='box'] {
-     width: 62px;
-     height: 62px;
      display: grid;
      grid-template-columns: auto auto auto;
-     justify-content: space-around;
-     align-content: space-around;
-     /* border: none; */
-     /* margin: 0.5px; */
-     /* margin: 0.5px; */
-     /* background-color: rgb(10, 222, 77); */
+     justify-content: center;
+    
+     border: none;
+     margin: 0.4px;
 
  }
 
- @media(min-width:768px) {
-     /* #container {
-         margin-top: 20px;
-         width: 210px;
-         height: 210px;
 
-     } */
+ button {
+    width: 24px;
+    height: 25.15px;
+    outline: none;
+    text-align: center;
+    /* font-size: 10px; */
+    /* padding: 0; */
+    margin: 0.4px;
+    border: none;
+    background-color: white;    
+    /* border: 1px solid rgb(25, 80, 231); */
 
-     /* div[classname='box'] {
-       
-         border: 0.5px solid black;
 
-     } */
-/* 
-     button {
-         margin: 1px;
-     } */
+}
+
+button:hover {
+    background-color: rgb(119, 234, 231);
+    cursor: pointer;
+}
+
+
+.selected {
+    background-color: rgb(117, 233, 144);
+
+}
+
+
+ /*  */
+.error {
+    color: red;
+}
+
+/* spinner */
+.loading_container{
+    position: absolute;
+    top: 180px;
+    width: 100%;
+    /* border: 1px solid gold; */
+    
+}
+
+.loading {
+
+  border: 16px solid #f3f3f3;
+  border-radius: 50%;
+  border-top: 2px solid blue;
+  border-right: 2px solid blue;
+  border-bottom: 2px solid blue;
+  border-left: 2px dotted lightblue;
+  width: 30px;
+  height: 30px;
+  -webkit-animation: spin 2s linear infinite;
+  animation: spin 2s linear infinite;
+  margin: auto;
+}
+
+@-webkit-keyframes spin {
+  0% { -webkit-transform: rotate(0deg); }
+  100% { -webkit-transform: rotate(360deg); }
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.not_loading {
+    display: none;
+}
+
+/* game levels */
+
+ .game_levels_container {
+     position: relative;
+     width: 100%;
+     display: grid;
+     grid-template-columns: auto auto auto;
+     justify-content: center;
+     margin-bottom: 0px;
+     /* border: 1px solid gold; */
+ }
+ .game_levels_container2{
+     display: none;
+ }
+
+ .game_level {
+     background-color: rgb(71, 180, 231);
+     text-align: center;
+     width: 60px;
+     border-radius: 2px;
+     margin: 0px 4px 4px 0px;
+     
+ }
+
+ .game_level:hover {
+     cursor: pointer;
+     background-color: rgb(46, 236, 46);
+ }
+
+.game_status{
+  display: none;
+}
+.game_status1{
+    color: rgb(11, 211, 246);
+    text-align: center;
+    font-weight: bold;
+    font-size: small;
+}
+ /*clock display  */
+
+.fas{
+    color: rgb(138, 130, 130);
+    font-size: 13px;
+}
+.hide{
+    display: none;
+}
+
+
+ #pause {
+     text-align: center;
+     border-radius: 5px;
+     padding: 2px;
+ }
+
+ #pause_btn:hover {
+     color: rgb(16, 236, 225);
+     transition: 0.3s;
+     cursor: pointer;
+ }
+
+
+ #timer {
+     /* border: 1px solid gold; */
+     margin-top: -30px;
+     display: grid;
+     grid-template-columns: auto auto auto auto;
+     justify-content: center;
+ }
+
+ #hour,
+ #minute,
+ #seconds {
+     width: 20px;
+     background-color: rgb(255, 255, 255);
+     text-align: center;
+     padding-left: 2px;
+     border-radius: 5px;
+     margin: 2px;
+ }
+ #seconds{
+     padding-left: initial;
+ }
+
+ #hour::after,
+ #minute::after {
+     position: relative;
+     content: ":";
+     left: 2px;
+     color: rgb(0, 0, 0);
+ }
+
+ .time_style {
+     color: rgb(0, 0, 0);
+ }
+
+ .time_style_start {
+     color: green;
+ }
+
+ .time_style_pause {
+     color: rgb(255, 0, 0);
+ }
+
+ /* new game/ reload */
+ #reload_container{
+    position: absolute;
+    top: 250px;
+    width: 100%;
+ }
+ #reload{
+     width: fit-content;
+     margin: auto;
+     text-align: center;
+     background-color: rgb(131, 138, 241);
+     border-radius: 5px;
+     padding: 1px;
+
+ }
+ #reload:hover{
+     background-color: cornflowerblue;
+     transition: 0.5s;
+     cursor: pointer;
+ }
+
+ /* congratulatory message */
+ .winner{
+     display: block;
+     margin-top: 12.5px;
+ }
+ #winner_msg{
+     font-size: small;
+     width: fit-content;
+     margin: auto;
+     text-align: center;
+     padding: 1px;
+     border-radius: 5px;
+     background-color: rgba(6, 93, 255,0.9);
+     color: greenyellow;
  }
