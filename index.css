@@ -17,6 +17,7 @@
 
     /* font-size: 72px; */
     background: -webkit-linear-gradient(rgb(7, 111, 248), rgb(163, 8, 8));
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
     /* text-shadow:2px 2px ; */
@@ -62,7 +63,7 @@
      width: 123px;
      height: 93px;
      margin: auto;
-     margin-top: 145px;
+     margin-top: 147px;
      /* background-color: rgba(128, 128, 128,0.3); */
      text-align: center;
      border-radius: 5px;
@@ -78,39 +79,36 @@
 
 /* sudoku board */
  #container {
-     max-width: fit-content;
-     margin: auto;
-     /* margin-top: 10px; */
-     display: grid;
-     grid-template-columns: auto auto auto;
-     justify-content: center;
      background-color: blue;
-     /* border: 1px solid gold; */
-    
-
+    width: 230.5px;
+    height: 230.5px;
+    margin: auto;
+    display: grid;
+    grid-template-columns: auto auto auto;
+    justify-content: space-around;
+    align-content: space-around;
  }
 
 
 
  div[classname='box'] {
+
+    width: 75px;
+    height: 75px;
      display: grid;
      grid-template-columns: auto auto auto;
-     justify-content: center;
-    
-     border: none;
-     margin: 0.4px;
+     justify-content: space-between;
+     align-content: space-between;
+    /* border: 1px solid rgb(25, 80, 231); */
 
  }
 
 
  button {
-    width: 24px;
-    height: 25.15px;
+    width: 24.5px;
+    height: 24.5px;
     outline: none;
     text-align: center;
-    /* font-size: 10px; */
-    /* padding: 0; */
-    margin: 0.4px;
     border: none;
     background-color: white;    
     /* border: 1px solid rgb(25, 80, 231); */
@@ -138,7 +136,7 @@ button:hover {
 /* spinner */
 .loading_container{
     position: absolute;
-    top: 180px;
+    top: 184px;
     width: 100%;
     /* border: 1px solid gold; */
     
