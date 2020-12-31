@@ -372,28 +372,18 @@ def final_creator(boxes,columns,rows,end):
     removes numbers from sudoku
     """
     game_start(boxes,columns,rows)
-     # create a list of nine randomly selected index
-    index_list = []
-    while len(index_list) < 9 : 
-        random = randint(0,8)
-        if random not in index_list:
-            index_list.append(random)
-    # print(index_list)
     for i in range(0,end):
-        
         for box in boxes:
-            # print(box['row_column_mix'])
-            row_column_index = row_column_mix_gen(box,index_list[i])
-
-            row_index = row_column_index[0]
-            column_index = row_column_index[1]
+            row_column= random.choice(box['row_column_mix'])#randomly selects from the list
+            row_index = int(row_column[1:2])
+            column_index = int(row_column[3:4])
+            # remove it from the list so it doesnt get selected twice
+            box['row_column_mix'].remove(row_column) 
 
             for key in box: # box is a dict, len of key avoids errors from smaller len keys
                 if len(key) == 15 \
                     and box[key]['row_attached'] == rows[row_index]['name'] \
                     and box[key]['column_attached'] == columns[column_index]['name']:
-                    # print(key)
-                    # print(len(box[key]['value']))
                         html_id = document[key]
                         box['html_ids'].remove(html_id)
 
