@@ -255,6 +255,9 @@ def game(boxes,columns,rows):
                                 box['html_ids'].append(html_id)
 
                                 html_id.text = value
+                                ######################################
+                                html_id.class_name = 'unclickable'
+
                                 box[key]['value'] = value
                                 
                                 box['values'].append(value)
@@ -280,6 +283,8 @@ def game(boxes,columns,rows):
                             for i in range(1,10):
                                 id = f"{box['name']}_inner_box{i}"
                                 document[id].text  = ''
+                                ########################
+                                # document[id].class_name = ''
                             box['values'] = []
                             box['blacklist'] = []
                             box['html_ids'] = []
@@ -333,6 +338,8 @@ def game(boxes,columns,rows):
 
                                             html_id.text = value
                                             box[key]['value'] = value
+                                            ######################################
+                                            html_id.class_name = 'unclickable'
                                             
                                             box['values'].append(value)
                                             rows[row_index]['values'].append(value)
@@ -393,6 +400,8 @@ def final_creator(boxes,columns,rows,end):
                         rows[row_index]['values'].remove(html_id.text )
                         columns[column_index]['values'].remove(html_id.text )
                         html_id.text = ''
+                        ######################################
+                        html_id.class_name = ''
 
             
 

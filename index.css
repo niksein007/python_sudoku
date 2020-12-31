@@ -55,8 +55,10 @@
 
  }
  .unclickable{
-     pointer-events: none;
+     pointer-events:none;
  }
+ 
+
  .layover_container{
      position: relative;
      z-index: 1;
