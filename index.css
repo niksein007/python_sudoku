@@ -56,8 +56,9 @@
  }
  .unclickable{
      pointer-events:none;
+     background-color: black;
  }
- 
+
 
  .layover_container{
      position: relative;
