@@ -56,7 +56,8 @@
  }
  .unclickable{
      pointer-events:none;
-     background-color: black;
+     background-color: rgb(116, 221, 240);
+
  }
 
 
