@@ -218,39 +218,35 @@ def game(boxes,columns,rows):
     """
     docstring
     """
-    start = time.perf_counter()
 
-    index_list = []
-    # create a list of nine randomly selected index
-    while len(index_list) < 9 :# remember its starts at a len of 0 not 1 
-        random = randint(0,8)
-        if random not in index_list:
-            index_list.append(random)
-    # print(index_list)
-
-  
-    for value in range(1,10): 
-        for box in boxes:
-            for index in range(0,9):
-                
-                row_column_index = row_column_mix_gen(box,index_list[index])
-
-                row_index = row_column_index[0]
-                column_index = row_column_index[1]
+    print('starting')
+    for value in range(1,10):
+        status = True
+        box_count = 0
+        start = time.perf_counter()
+        while status:
+            for box in boxes:
+                row_column= random.choice(box['row_column_mix'])#randomly selects from the list
+                row_index = int(row_column[1:2])
+                column_index = int(row_column[3:4])
                 if(value not in rows[row_index]['values'] \
                     and value not in columns[column_index]['values']) \
-                    and (row_column_index not in box['blacklist']):
+                    and value not in box['values'] :
 
-                    box['blacklist'].append(row_column_index)
+                    box['blacklist'].append(row_column)
+                    box['row_column_mix'].remove(row_column)# removes innerbox unique location
 
                     for key in box: # box is a dict, len of key avoids errors from smaller len keys
                         if len(key) == 15 \
                             and box[key]['row_attached'] == rows[row_index]['name'] \
                             and box[key]['column_attached'] == columns[column_index]['name']:
-                            if document[key].text == '':
-                            # print(key)
-                            # print(len(box[key]['value']))
+                            # if box[key]['value'] == "":
+                                # print(key)
+                                # print(len(box[key]['value']))
                                 value = str(value)
+                                id = key
+                                box['ids'].append(id)
+
                                 html_id = document[key]
                                 box['html_ids'].append(html_id)
 
@@ -260,99 +256,200 @@ def game(boxes,columns,rows):
                                 box['values'].append(value)
                                 rows[row_index]['values'].append(value)
                                 columns[column_index]['values'].append(value)
-                    break
+                                box_count += 1
+                                if box_count == 9:
+                                    status = False
+            end = time.perf_counter()
+            print(end - start)
+            time_taken = end -start
+            print(value)
+            if (box_count != 9 and time_taken > 0.15):
+                #backtrack for all innerbexes in the box
+                print('backtracking')
+                # clear everthing related to value and start again
+                for box in boxes:
+                    if value in box['values']:
+                        box['values'].remove(value)
+                        inner_box_id = box['ids'].pop()
+                        # print(inner_box_id)
+                        row_index = int(box[inner_box_id]['row_attached'][-1]) -1
+                        column_index = int(box[inner_box_id]['column_attached'][-1]) -1
+                        # print(column_index)
+                        rows[row_index]['values'].remove(value)
+                        columns[column_index]['values'].remove(value)
 
-        state = True
-        while state :
-            count = 0
-            for box in boxes:
-                if len(box['values']) < int(value):
+                        inner_box_html_id = box['html_ids'].pop()
+                        inner_box_html_id.text = ''
 
-                    print(f"{box['name']} not filled backtracking")
-                    print(value)
-                    # print(box['name'])
-                    #checks if combination is impossible and reset every thing
-                    end = time.perf_counter()
-                    print(end - start)
-                    if (end - start)  > 3.5:
-                        print('taking too long')
-                        for box in boxes:
-                            for i in range(1,10):
-                                id = f"{box['name']}_inner_box{i}"
-                                document[id].text  = ''
-                            box['values'] = []
-                            box['blacklist'] = []
-                            box['html_ids'] = []
-                        for i in range(0,9):
-                            rows[i]['values'] = []
-                            columns[i]['values'] = []
-                        return False
+                        row_column = box['blacklist'].pop()
+                        box['row_column_mix'].append(row_column)
+                        box_count = 0
+                        #reset time
+                        start = time.perf_counter()
 
-                    for box in boxes:
-                        if len(box['values']) == int(value):
-                            row_column_index =  box['blacklist'].pop()
-                            row_index = row_column_index[0]
-                            column_index = row_column_index[1]
-                            box['values'].pop()
-                            rows[row_index]['values'].pop()
-                            columns[column_index]['values'].pop()
-                            removed_html_id = box['html_ids'].pop()
-                            removed_html_id.text = ''
 
-                    print('repeating')
-                    index_list = []
-                    # create a list of nine randomly selected index
-                    while len(index_list) < 9 :# remember its starts at a len of 0 not 1 
-                        random = randint(0,8)
-                        if random not in index_list:
-                            index_list.append(random)
-                    # print(index_list)
-                    for box in boxes:
-                        for index in range(0,9):
+
+                   
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    # start = time.perf_counter()
+
+    # index_list = []
+    # # create a list of nine randomly selected index
+    # while len(index_list) < 9 :# remember its starts at a len of 0 not 1 
+    #     random = randint(0,8)
+    #     if random not in index_list:
+    #         index_list.append(random)
+    # # print(index_list)
+
+  
+    # for value in range(1,10): 
+    #     for box in boxes:
+    #         for index in range(0,9):
+                
+    #             row_column_index = row_column_mix_gen(box,index_list[index])
+
+    #             row_index = row_column_index[0]
+    #             column_index = row_column_index[1]
+    #             if(value not in rows[row_index]['values'] \
+    #                 and value not in columns[column_index]['values']) \
+    #                 and (row_column_index not in box['blacklist']):
+
+    #                 box['blacklist'].append(row_column_index)
+
+    #                 for key in box: # box is a dict, len of key avoids errors from smaller len keys
+    #                     if len(key) == 15 \
+    #                         and box[key]['row_attached'] == rows[row_index]['name'] \
+    #                         and box[key]['column_attached'] == columns[column_index]['name']:
+    #                         if document[key].text == '':
+    #                         # print(key)
+    #                         # print(len(box[key]['value']))
+    #                             value = str(value)
+    #                             html_id = document[key]
+    #                             box['html_ids'].append(html_id)
+
+    #                             html_id.text = value
+    #                             box[key]['value'] = value
+                                
+    #                             box['values'].append(value)
+    #                             rows[row_index]['values'].append(value)
+    #                             columns[column_index]['values'].append(value)
+    #                 break
+
+    #     state = True
+    #     while state :
+    #         count = 0
+    #         for box in boxes:
+    #             if len(box['values']) < int(value):
+
+    #                 print(f"{box['name']} not filled backtracking")
+    #                 print(value)
+    #                 # print(box['name'])
+    #                 #checks if combination is impossible and reset every thing
+    #                 end = time.perf_counter()
+    #                 print(end - start)
+    #                 if (end - start)  > 3.5:
+    #                     print('taking too long')
+    #                     for box in boxes:
+    #                         for i in range(1,10):
+    #                             id = f"{box['name']}_inner_box{i}"
+    #                             document[id].text  = ''
+    #                         box['values'] = []
+    #                         box['blacklist'] = []
+    #                         box['html_ids'] = []
+    #                     for i in range(0,9):
+    #                         rows[i]['values'] = []
+    #                         columns[i]['values'] = []
+    #                     return False
+
+    #                 for box in boxes:
+    #                     if len(box['values']) == int(value):
+    #                         row_column_index =  box['blacklist'].pop()
+    #                         row_index = row_column_index[0]
+    #                         column_index = row_column_index[1]
+    #                         box['values'].pop()
+    #                         rows[row_index]['values'].pop()
+    #                         columns[column_index]['values'].pop()
+    #                         removed_html_id = box['html_ids'].pop()
+    #                         removed_html_id.text = ''
+
+    #                 print('repeating')
+    #                 index_list = []
+    #                 # create a list of nine randomly selected index
+    #                 while len(index_list) < 9 :# remember its starts at a len of 0 not 1 
+    #                     random = randint(0,8)
+    #                     if random not in index_list:
+    #                         index_list.append(random)
+    #                 # print(index_list)
+    #                 for box in boxes:
+    #                     for index in range(0,9):
                     
-                            row_column_index = row_column_mix_gen(box,index_list[index])
+    #                         row_column_index = row_column_mix_gen(box,index_list[index])
 
-                            row_index = row_column_index[0]
-                            column_index = row_column_index[1]
-                            if(value not in rows[row_index]['values'] \
-                                and value not in columns[column_index]['values']) \
-                                and (row_column_index not in box['blacklist']):
+    #                         row_index = row_column_index[0]
+    #                         column_index = row_column_index[1]
+    #                         if(value not in rows[row_index]['values'] \
+    #                             and value not in columns[column_index]['values']) \
+    #                             and (row_column_index not in box['blacklist']):
 
-                                box['blacklist'].append(row_column_index)
+    #                             box['blacklist'].append(row_column_index)
 
-                                for key in box: # box is a dict, len of key avoids errors from smaller len keys
-                                    if len(key) == 15 \
-                                        and box[key]['row_attached'] == rows[row_index]['name'] \
-                                        and box[key]['column_attached'] == columns[column_index]['name']:
-                                        if document[key].text == '':
-                                        # print(key)
-                                        # print(len(box[key]['value']))
-                                            value = str(value)
-                                            html_id = document[key]
-                                            box['html_ids'].append(html_id)
+    #                             for key in box: # box is a dict, len of key avoids errors from smaller len keys
+    #                                 if len(key) == 15 \
+    #                                     and box[key]['row_attached'] == rows[row_index]['name'] \
+    #                                     and box[key]['column_attached'] == columns[column_index]['name']:
+    #                                     if document[key].text == '':
+    #                                     # print(key)
+    #                                     # print(len(box[key]['value']))
+    #                                         value = str(value)
+    #                                         html_id = document[key]
+    #                                         box['html_ids'].append(html_id)
 
-                                            html_id.text = value
-                                            box[key]['value'] = value
+    #                                         html_id.text = value
+    #                                         box[key]['value'] = value
                                             
-                                            box['values'].append(value)
-                                            rows[row_index]['values'].append(value)
-                                            columns[column_index]['values'].append(value)
-                                break
-            if len(boxes[0]['values']) == int(value)\
-            and len(boxes[1]['values']) == int(value)\
-            and len(boxes[2]['values']) == int(value)\
-            and len(boxes[3]['values']) == int(value)\
-            and len(boxes[4]['values']) == int(value)\
-            and len(boxes[5]['values']) == int(value)\
-            and len(boxes[6]['values']) == int(value)\
-            and len(boxes[7]['values']) == int(value)\
-            and len(boxes[8]['values']) == int(value):
-                print(f"all filled with value {value}")
-                state = False
+    #                                         box['values'].append(value)
+    #                                         rows[row_index]['values'].append(value)
+    #                                         columns[column_index]['values'].append(value)
+    #                             break
+    #         if len(boxes[0]['values']) == int(value)\
+    #         and len(boxes[1]['values']) == int(value)\
+    #         and len(boxes[2]['values']) == int(value)\
+    #         and len(boxes[3]['values']) == int(value)\
+    #         and len(boxes[4]['values']) == int(value)\
+    #         and len(boxes[5]['values']) == int(value)\
+    #         and len(boxes[6]['values']) == int(value)\
+    #         and len(boxes[7]['values']) == int(value)\
+    #         and len(boxes[8]['values']) == int(value):
+    #             print(f"all filled with value {value}")
+    #             state = False
 
-    # end = time.perf_counter()
-    # print(end - start)
-    return True
+    # # end = time.perf_counter()
+    # # print(end - start)
+    # return True
 
 
 
@@ -372,28 +469,18 @@ def final_creator(boxes,columns,rows,end):
     removes numbers from sudoku
     """
     game_start(boxes,columns,rows)
-     # create a list of nine randomly selected index
-    index_list = []
-    while len(index_list) < 9 : 
-        random = randint(0,8)
-        if random not in index_list:
-            index_list.append(random)
-    # print(index_list)
     for i in range(0,end):
-        
         for box in boxes:
-            # print(box['row_column_mix'])
-            row_column_index = row_column_mix_gen(box,index_list[i])
-
-            row_index = row_column_index[0]
-            column_index = row_column_index[1]
+            row_column= random.choice(box['row_column_mix'])#randomly selects from the list
+            row_index = int(row_column[1:2])
+            column_index = int(row_column[3:4])
+            # remove it from the list so it doesnt get selected twice
+            box['row_column_mix'].remove(row_column) 
 
             for key in box: # box is a dict, len of key avoids errors from smaller len keys
                 if len(key) == 15 \
                     and box[key]['row_attached'] == rows[row_index]['name'] \
                     and box[key]['column_attached'] == columns[column_index]['name']:
-                    # print(key)
-                    # print(len(box[key]['value']))
                         html_id = document[key]
                         box['html_ids'].remove(html_id)
 
@@ -413,23 +500,24 @@ def game_easy(boxes,columns,rows,end=3):
     """
     print('easy game')
 
-    final_creator(boxes,columns,rows,end)
+    # final_creator(boxes,columns,rows,end)
+    game(boxes,columns,rows)
 
-def game_medium(boxes,columns,rows,end=5):
-    """
-    creates a challanging version
-    """
-    print('medium game')
-    final_creator(boxes,columns,rows,end)
+# def game_medium(boxes,columns,rows,end=5):
+#     """
+#     creates a challanging version
+#     """
+#     print('medium game')
+#     final_creator(boxes,columns,rows,end)
 
 
-def game_hard(boxes,columns,rows,end=7):
-    """
-    creates a difficult version
-    """
-    print('hard game')
+# def game_hard(boxes,columns,rows,end=7):
+#     """
+#     creates a difficult version
+#     """
+#     print('hard game')
 
-    final_creator(boxes,columns,rows,end)
+#     final_creator(boxes,columns,rows,end)
 
 
 

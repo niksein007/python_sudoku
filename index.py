@@ -26,7 +26,8 @@ for CRB in range(1, 10):  # CRB == column row and box
            'rows_attached':[],
            'row_column_mix':[],
            'blacklist':[],
-           'html_ids':[]
+           'html_ids':[],
+           'ids':[]
            }
     # attach 9 inner divs/boxes
     for num in range(1, 10):
