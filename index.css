@@ -8,31 +8,33 @@
      margin: 0;
      background-color: rgb(236, 234, 231);
  }
- #sudoku{
-     margin-top: 5px;
-    text-align: center;
-    font-weight: bold;
-    font-size: xx-large;
-    font-family: sans-serif;
 
-    /* font-size: 72px; */
-    background: -webkit-linear-gradient(rgb(7, 111, 248), rgb(163, 8, 8));
-    background-clip: text;
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    /* text-shadow:2px 2px ; */
-}
+ #sudoku {
+     margin-top: 5px;
+     text-align: center;
+     font-weight: bold;
+     font-size: xx-large;
+     font-family: sans-serif;
+
+     /* font-size: 72px; */
+     background: -webkit-linear-gradient(rgb(7, 111, 248), rgb(163, 8, 8));
+     background-clip: text;
+     -webkit-background-clip: text;
+     -webkit-text-fill-color: transparent;
+     /* text-shadow:2px 2px ; */
+ }
+
  /* selectors */
  #selector_container {
      position: absolute;
-     top: 325px;
+     top: 320px;
      width: 100%;
      display: grid;
      grid-template-columns: auto auto auto;
      justify-content: center;
      /* background-color: gold; */
      /* border: 1px solid gold; */
-    
+
  }
 
  div[classname='selector'] {
@@ -41,7 +43,7 @@
      padding-top: 6px;
      text-align: center;
      margin: 0.7px;
-     background-color: white;    
+     background-color: white;
      border-radius: 5px;
      border: 1px solid rgb(17, 17, 240);
 
@@ -54,20 +56,21 @@
      /* color: rgb(21, 255, 0); */
 
  }
- .unclickable{
-     pointer-events:none;
+
+ .unclickable {
+     pointer-events: none;
      background-color: rgb(116, 221, 240);
 
  }
- 
 
- .layover_container{
+
+ .layover_container {
      position: relative;
      z-index: 1;
      width: 123px;
      height: 93px;
      margin: auto;
-     margin-top: 144px;
+     margin-top: 138.5px;
      /* background-color: rgba(128, 128, 128,0.3); */
      text-align: center;
      border-radius: 5px;
@@ -75,107 +78,120 @@
      /* border: 1px solid gold; */
 
  }
- #layover_msg{
-     background-color: rgba(128, 128, 128,0.9);
+
+ #layover_msg {
+     background-color: rgba(128, 128, 128, 0.9);
      color: white;
  }
 
 
-/* sudoku board */
+ /* sudoku board */
  #container {
      background-color: blue;
-    width: 230.5px;
-    height: 230.5px;
-    margin: auto;
-    display: grid;
-    grid-template-columns: auto auto auto;
-    justify-content: space-around;
-    align-content: space-around;
+     width: 232px;
+     height: 232px;
+     padding: 0;
+     margin: auto;
+     display: grid;
+     grid-template-columns: auto auto auto;
+     justify-content: center;
+     align-content: center;
  }
 
 
 
  div[classname='box'] {
 
-    width: 75px;
-    height: 75px;
+    
+     padding: 1px;
      display: grid;
      grid-template-columns: auto auto auto;
-     justify-content: space-between;
-     align-content: space-between;
-    /* border: 1px solid rgb(25, 80, 231); */
+     justify-content: center;
+     align-content: center;
+   
 
  }
 
 
  button {
-    width: 24.5px;
-    height: 24.5px;
-    outline: none;
-    text-align: center;
-    border: none;
-    background-color: white;    
-    /* border: 1px solid rgb(25, 80, 231); */
+     display: block;
+     width: 25px;
+     height: 25px;
+     outline: none;
+     text-align: center;
+     background-color: white;
+     border: 0.1px solid rgba(0, 0, 255, 0.1);
+   
 
 
-}
+ }
 
-button:hover {
-    background-color: rgb(119, 234, 231);
-    cursor: pointer;
-}
+ button:hover {
+     background-color: rgb(119, 234, 231);
+     cursor: pointer;
+ }
 
 
-.selected {
-    background-color: rgb(117, 233, 144);
+ .selected {
+     background-color: rgb(117, 233, 144);
 
-}
+ }
 
 
  /*  */
-.error {
-    color: red;
-}
+ .error {
+     color: red;
+ }
 
-/* spinner */
-.loading_container{
-    position: absolute;
-    top: 184px;
-    width: 100%;
-    /* border: 1px solid gold; */
-    
-}
+ /* spinner */
+ .loading_container {
+     position: absolute;
+     top: 184px;
+     width: 100%;
+     /* border: 1px solid gold; */
 
-.loading {
+ }
 
-  border: 16px solid #f3f3f3;
-  border-radius: 50%;
-  border-top: 2px solid blue;
-  border-right: 2px solid blue;
-  border-bottom: 2px solid blue;
-  border-left: 2px dotted lightblue;
-  width: 30px;
-  height: 30px;
-  -webkit-animation: spin 2s linear infinite;
-  animation: spin 2s linear infinite;
-  margin: auto;
-}
+ .loading {
 
-@-webkit-keyframes spin {
-  0% { -webkit-transform: rotate(0deg); }
-  100% { -webkit-transform: rotate(360deg); }
-}
+     border: 16px solid #f3f3f3;
+     border-radius: 50%;
+     border-top: 2px solid blue;
+     border-right: 2px solid blue;
+     border-bottom: 2px solid blue;
+     border-left: 2px dotted lightblue;
+     width: 30px;
+     height: 30px;
+     -webkit-animation: spin 2s linear infinite;
+     animation: spin 2s linear infinite;
+     margin: auto;
+ }
 
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
+ @-webkit-keyframes spin {
+     0% {
+         -webkit-transform: rotate(0deg);
+     }
 
-.not_loading {
-    display: none;
-}
+     100% {
+         -webkit-transform: rotate(360deg);
+     }
+ }
 
-/* game levels */
+ @keyframes spin {
+     0% {
+         transform: rotate(0deg);
+     }
+
+     100% {
+         transform: rotate(360deg);
+     }
+ }
+
+ .not_loading {
+     display: none;
+ }
+
+ /* game levels */
 
  .game_levels_container {
      position: relative;
@@ -186,7 +202,8 @@ button:hover {
      margin-bottom: 0px;
      /* border: 1px solid gold; */
  }
- .game_levels_container2{
+
+ .game_levels_container2 {
      display: none;
  }
 
@@ -196,7 +213,7 @@ button:hover {
      width: 60px;
      border-radius: 2px;
      margin: 0px 4px 4px 0px;
-     
+
  }
 
  .game_level:hover {
@@ -204,24 +221,27 @@ button:hover {
      background-color: rgb(46, 236, 46);
  }
 
-.game_status{
-  display: none;
-}
-.game_status1{
-    color: rgb(11, 211, 246);
-    text-align: center;
-    font-weight: bold;
-    font-size: small;
-}
+ .game_status {
+     display: none;
+ }
+
+ .game_status1 {
+     color: rgb(11, 211, 246);
+     text-align: center;
+     font-weight: bold;
+     font-size: small;
+ }
+
  /*clock display  */
 
-.fas{
-    color: rgb(138, 130, 130);
-    font-size: 13px;
-}
-.hide{
-    display: none;
-}
+ .fas {
+     color: rgb(138, 130, 130);
+     font-size: 13px;
+ }
+
+ .hide {
+     display: none;
+ }
 
 
  #pause {
@@ -255,7 +275,8 @@ button:hover {
      border-radius: 5px;
      margin: 2px;
  }
- #seconds{
+
+ #seconds {
      padding-left: initial;
  }
 
@@ -280,12 +301,13 @@ button:hover {
  }
 
  /* new game/ reload */
- #reload_container{
-    position: absolute;
-    top: 250px;
-    width: 100%;
+ #reload_container {
+     position: absolute;
+     top: 240px;
+     width: 100%;
  }
- #reload{
+
+ #reload {
      width: fit-content;
      margin: auto;
      text-align: center;
@@ -294,24 +316,26 @@ button:hover {
      padding: 1px;
 
  }
- #reload:hover{
+
+ #reload:hover {
      background-color: cornflowerblue;
      transition: 0.5s;
      cursor: pointer;
  }
 
  /* congratulatory message */
- .winner{
+ .winner {
      display: block;
      margin-top: 12.5px;
  }
- #winner_msg{
+
+ #winner_msg {
      font-size: small;
      width: fit-content;
      margin: auto;
      text-align: center;
      padding: 1px;
      border-radius: 5px;
-     background-color: rgba(6, 93, 255,0.9);
+     background-color: rgba(6, 93, 255, 0.9);
      color: greenyellow;
  }
